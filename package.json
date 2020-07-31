@@ -1,0 +1,22 @@
+{
+  "name": "myclass_webscraper",
+  "version": "1.0.0",
+  "description": "Web scraper or simply a script that attends classes on your behalf.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anuragsati/myClass_webScraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anuragsati/myClass_webScraper/issues"
+  },
+  "homepage": "https://github.com/anuragsati/myClass_webScraper#readme",
+  "dependencies": {
+    "puppeteer": "^5.2.1"
+  }
+}
