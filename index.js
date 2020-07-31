@@ -8,11 +8,14 @@ const puppeteer = require("puppeteer");
         defaultViewport: null,
     });
     const page = await browser.newPage();
-    await page.goto("https://myclass.lpu.in/");
+    await page.goto("https://myclass.lpu.in/", {
+        waitUntil: "load",
+        timeout: 0,
+    });
 
     //==========    LOGIN PAGE =========
-    const Username = "";
-    const Password = "";
+    const Username = ""; //enter ums username
+    const Password = ""; //enter ums password
 
     await page.waitFor("#txtUserName");
     await page.$eval(
@@ -36,10 +39,45 @@ const puppeteer = require("puppeteer");
     await page.click('[title = "Click here to view Meetings"]');
 
     //========== calender select tabular view =======
-    const events = ".fc-event-container:nth-child(2) a";
+    // const events = ".fc-event-container:nth-child(2) a";
 
-    await page.waitFor(events);
-    const x = await page.$$eval(events);
-    console.log(x);
-    // await page.click(events)
+    // await page.waitFor(events);
+
+    // const urls = await page.evaluate(() =>
+    //     Array.from(
+    //         document.querySelectorAll(".fc-event-container:nth-child(2) a"),
+    //         (el) => el.href
+    //     )
+    // );
+
+    // for (let i = 0; i < urls.length; ++i) {
+    //     await page.goto(urls[i], { waitUntil: "load" });
+
+    //     const className = await page.$eval(
+    //         "#meetingInfoTitle",
+    //         (el) => el.textContent
+    //     );
+    //     console.log(className);
+    // }
+
+    await page.waitFor("div.fc-title");
+    await page.waitFor("div.fc-time");
+
+    const titles = await page.evaluate(() =>
+        Array.from(
+            document.querySelectorAll("div.fc-title"),
+            (el) => el.textContent
+        )
+    );
+
+    const timings = await page.evaluate(() =>
+        Array.from(
+            document.querySelectorAll("div.fc-time span"),
+            (el) => el.textContent
+        )
+    );
+
+    for (let i = 0; i < titles.length; ++i) {
+        console.log(titles[i], "    ", timings[i]);
+    }
 })();
